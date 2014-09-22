@@ -1,99 +1,87 @@
 Basic Coding Standard
 =====================
 
-This section of the standard comprises what should be considered the standard
-coding elements that are required to ensure a high level of technical
-interoperability between shared PHP code.
+這部分的標準制定了應該為哪些編程元素訂定標準，確保他們在共用的 PHP 程式碼間有高階的技術共通性
 
-The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD",
-"SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be
-interpreted as described in [RFC 2119].
+文件裡的這些關鍵字 "MUST" ， "MUST NOT" ， "REQUIRED" ， "SHALL" ， "SHALL NOT" ， "SHOULD" ，
+ "SHOULD NOT" ， "RECOMMENDED" ， "MAY" ， 和 "OPTIONAL" 的解釋在 [RFC 2119]
 
 [RFC 2119]: http://www.ietf.org/rfc/rfc2119.txt
 [PSR-0]: https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-0.md
 [PSR-4]: https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-4-autoloader.md
 
 
-1. Overview
+1. 概觀
 -----------
 
-- Files MUST use only `<?php` and `<?=` tags.
+- 檔案 MUST 只能使用 `<?php` 和 `<?=` 標簽。
 
-- Files MUST use only UTF-8 without BOM for PHP code.
+- 檔案 MUST 只能在 PHP 程式碼裡使用沒有 BOM 的 UTF-8。
 
-- Files SHOULD *either* declare symbols (classes, functions, constants, etc.)
-  *or* cause side-effects (e.g. generate output, change .ini settings, etc.)
-  but SHOULD NOT do both.
+- 一個檔案裡 SHOULD *只能* 宣告 symbols（類別，函數，常數等）
+  *或是* 產生 side-effects（如：產生輸出，變更 .ini 設定等），
+  但是 SHOULD NOT 兩個都做。
 
-- Namespaces and classes MUST follow an "autoloading" PSR: [[PSR-0], [PSR-4]].
+- 命名空間（ Namespaces ）和類別 MUST 遵守 "autoloading" PSR: [[PSR-0], [PSR-4]]。
 
-- Class names MUST be declared in `StudlyCaps`.
+- 類別命名 MUST 用首字大寫的駝峰式命名（ `StudlyCaps` ）。
 
-- Class constants MUST be declared in all upper case with underscore separators.
+- 類別常數命名 MUST 全用大寫和底線.
 
-- Method names MUST be declared in `camelCase`.
+- 類別方法命名 MUST 用駝峰式命名（ `camelCase` ）.
 
 
-2. Files
+2. 檔案
 --------
 
-### 2.1. PHP Tags
+### 2.1. PHP 標簽
 
-PHP code MUST use the long `<?php ?>` tags or the short-echo `<?= ?>` tags; it
-MUST NOT use the other tag variations.
+PHP 程式碼 MUST 使用長標籤 `<?php ?>` 或是 短標籤（ short-echo ）`<?= ?>` ；
+MUST NOT 使用其他標籤。
 
-### 2.2. Character Encoding
+### 2.2. 字元編碼
 
-PHP code MUST use only UTF-8 without BOM.
+PHP 程式碼 MUST 只使用沒有 BOM 的 UTF-8。
 
 ### 2.3. Side Effects
 
-A file SHOULD declare new symbols (classes, functions, constants,
-etc.) and cause no other side effects, or it SHOULD execute logic with side
-effects, but SHOULD NOT do both.
+一個檔案裡 SHOULD 宣告新的 symbols （類別，函數，常數等）而不導致 side effects, 或是 SHOULD 執行有 side effects 的邏輯，但是 SHOULD NOT 兩個都做。
 
-The phrase "side effects" means execution of logic not directly related to
-declaring classes, functions, constants, etc., *merely from including the
-file*.
+"side effects" 指的是執行的邏輯不直接相關於宣告類別，函數，常數等，*只與引入檔案相關*。
 
-"Side effects" include but are not limited to: generating output, explicit
-use of `require` or `include`, connecting to external services, modifying ini
-settings, emitting errors or exceptions, modifying global or static variables,
-reading from or writing to a file, and so on.
+"Side effects" 囊括但不限於以下：產生輸出，明確的使用 `require` 或 `include`，連結外部服務，修改 ini 設定，發送錯誤或是例外，修改全域或靜態變數，讀取或寫入檔案等等。
 
-The following is an example of a file with both declarations and side effects;
-i.e, an example of what to avoid:
+以下是同時包含了宣告和 side effects 的範例；也就是說，應該避免如下範例：
 
 ```php
 <?php
-// side effect: change ini settings
+// side effect: 更改 ini 設定
 ini_set('error_reporting', E_ALL);
 
-// side effect: loads a file
+// side effect: 引入檔案
 include "file.php";
 
-// side effect: generates output
+// side effect: 產生輸出
 echo "<html>\n";
 
-// declaration
+// 宣告
 function foo()
 {
     // function body
 }
 ```
 
-The following example is of a file that contains declarations without side
-effects; i.e., an example of what to emulate:
+下面的範例是沒有 side effects的宣告；也就是應該仿效的範例：
 
 ```php
 <?php
-// declaration
+// 宣告
 function foo()
 {
     // function body
 }
 
-// conditional declaration is *not* a side effect
+// 條件陳述式 *不算是* side effect
 if (! function_exists('bar')) {
     function bar()
     {
@@ -103,23 +91,22 @@ if (! function_exists('bar')) {
 ```
 
 
-3. Namespace and Class Names
+3. 命名空間（ Namespace ）和類別名稱
 ----------------------------
 
-Namespaces and classes MUST follow [PSR-0].
+命名空間和類別 MUST 遵守 [PSR-0]。
 
-This means each class is in a file by itself, and is in a namespace of at
-least one level: a top-level vendor name.
+意味著一個檔案只會有一個類別，而且至少有一層命名空間：最上層的 vendor 名稱
 
-Class names MUST be declared in `StudlyCaps`.
+類別名稱 MUST 以首字大寫的駝峰式命名（ `StudlyCaps` ）
 
-Code written for PHP 5.3 and after MUST use formal namespaces.
+PHP 5.3 以上的程式碼 MUST 使用正式的命名空間。
 
-For example:
+例如：
 
 ```php
 <?php
-// PHP 5.3 and later:
+// PHP 5.3 以上版本:
 namespace Vendor\Model;
 
 class Foo
@@ -127,8 +114,8 @@ class Foo
 }
 ```
 
-Code written for 5.2.x and before SHOULD use the pseudo-namespacing convention
-of `Vendor_` prefixes on class names.
+5.2.x 以及更之前版本的程式碼 SHOULD 遵守偽命名空間（ pseudo-namespacing ）慣例，
+類別名稱使用 `Vendor_` 前綴。
 
 ```php
 <?php
@@ -138,15 +125,16 @@ class Vendor_Model_Foo
 }
 ```
 
-4. Class Constants, Properties, and Methods
+4. Class 常數, 屬性, 和方法
 -------------------------------------------
 
-The term "class" refers to all classes, interfaces, and traits.
+這裡的 "class" 是指所有的類別（ classes ），介面（ interfaces ），和特性（ traits ）。
 
-### 4.1. Constants
+### 4.1. 常數
 
-Class constants MUST be declared in all upper case with underscore separators.
-For example:
+Class 常數命名 MUST 全用大寫和底線。
+
+例如：
 
 ```php
 <?php
@@ -159,15 +147,12 @@ class Foo
 }
 ```
 
-### 4.2. Properties
+### 4.2. 屬性
 
-This guide intentionally avoids any recommendation regarding the use of
-`$StudlyCaps`, `$camelCase`, or `$under_score` property names.
+這份指南刻意避免了類似於首字大寫駝峰式命名（ `$StudlyCaps` ），駝峰式命名（ `$camelCase` ），或是底線分隔式命名 （ `$under_score` ）的屬性命名建議。
 
-Whatever naming convention is used SHOULD be applied consistently within a
-reasonable scope. That scope may be vendor-level, package-level, class-level,
-or method-level.
+無論使用何種命名準則，在合理範圍內應該要保持一致性。這個範圍可以是 vendor-level ， package-level ， class-level ， 或是 method-level 。
 
-### 4.3. Methods
+### 4.3. 方法
 
-Method names MUST be declared in `camelCase()`.
+方法命名 MUST 用駝峰式命名（ `camelCase()` ）。
