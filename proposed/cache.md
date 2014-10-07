@@ -198,18 +198,10 @@ interface CacheItemInterface
      *
      * @param mixed $value
      *   The serializable value to be stored.
-     * @param int|\DateTime $ttl
-     *   - If an integer is passed, it is interpreted as the number of seconds
-     *     after which the item MUST be considered expired.
-     *   - If a DateTime object is passed, it is interpreted as the point in
-     *     time after which the item MUST be considered expired.
-     *   - If no value is passed, a default value MAY be used. If none is set,
-     *     the value should be stored permanently or for as long as the
-     *     implementation allows.
      * @return static
      *   The invoked object.
      */
-    public function set($value, $ttl = null);
+    public function set($value);
 
     /**
      * Confirms if the cache item lookup resulted in a cache hit.
@@ -233,6 +225,17 @@ interface CacheItemInterface
      *  True if item exists in the cache, false otherwise.
      */
     public function exists();
+
+    /**
+     * This method is used to tell future calls to this item if re-regeneration of
+     * this item's data is in progress or not.
+     *
+     * This can be used to prevent the dogpile effect to stop lots of requests re-generating
+     * the fresh data over and over.
+     *
+     * @return boolean
+     */
+    public function isRegenerating();
 
     /**
      * Sets the expiration for this cache item.
