@@ -5,8 +5,8 @@
 
 目的在於讓函式庫能夠獲取 `Psr\Log\LoggerInterface` 物件且能夠透過一個簡單並且統一的方式來記錄日誌。有自訂需求的框架和內容管理系統 ”可以” 依據需求去擴展這個介面，但 “應該” 維持與此文件的相容性。這確保應用中使用的第三方函式庫可將日誌集中寫道應用程式日誌中。
 
-本文件中以 [RFC 2119][] 的關鍵字 “必須 (MUST)”、”不可 (MUST NOT)”、”必要 (REQUIRED)”、”將要 (SHALL)”、”將不 (SHALL NOT)”
-、”應該 (SHOULD)”、“不應該 (SHOULD NOT)”、”建議 (RECOMMENDED)”、”可以/可能 (MAY)” 和 “OPTIONAL (選用)” 來做解釋性的描述。
+本文件中以 [RFC 2119][] 的關鍵字 “必須（ MUST ）”、”不可（ MUST NOT ）”、”必要（ REQUIRED ）”、”將要（ SHALL ）”、”將不（ SHALL NOT ）”
+、”應該（ SHOULD ）”、“不應該（ SHOULD NOT ）”、”建議（ RECOMMENDED ）”、”可以/可能（ MAY ）” 和 “選用（ OPTIONAL ）” 來做解釋性的描述。
 
 本文件中的關鍵詞 “實作者 (implementor)” 意指在日誌相關函式庫或框架中實作 `LoggerInterface` 的開發人員。使用實現者開發出的函式庫的人皆被稱為 “用戶”。
 
