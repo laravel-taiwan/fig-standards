@@ -17,7 +17,7 @@
 
 ### 1.1 基礎
 
-- `LoggerInterface` 擁有八個方法用來記錄 [RF 5424][] 的八個層級 (debug, info, notice, warning, error, critical, alert, emergency)。
+- `LoggerInterface` 擁有八個方法用來記錄 [RFC 5424][] 的八個層級 (debug, info, notice, warning, error, critical, alert, emergency)。
 
 - 第 9 個方法 `log` 以日誌層級作為第一個參數。使用一個日誌層級常數來呼叫此方法 “必須” 和直接呼叫指定層級方法結果一致。以一個未定義於規範中的層級或並未被實作出來的日誌層級來呼叫此方法 “必須” 丟出 “Psr\Log\InvalidArgumentException”。用戶 “不應該” 使用自訂的日誌層級，除非你確定使用的函式庫有支援。
 
